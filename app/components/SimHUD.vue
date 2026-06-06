@@ -31,6 +31,7 @@ const nearbyName = computed(() => {
   position: fixed;
   top: 16px;
   left: 16px;
+  z-index: 20;
   background: rgba(0, 0, 0, 0.65);
   color: #e2e8f0;
   font-family: system-ui, sans-serif;
@@ -59,6 +60,7 @@ const nearbyName = computed(() => {
   position: fixed;
   top: 16px;
   right: 16px;
+  z-index: 20;
   background: rgba(0, 0, 0, 0.65);
   color: #e2e8f0;
   font-family: system-ui, sans-serif;
