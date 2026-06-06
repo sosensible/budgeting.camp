@@ -9,27 +9,25 @@ export function useResident(keys: ReturnType<typeof useKeyboard>['keys']) {
   const nearbyLocation = ref<string | null>(null)
 
   function update() {
-    const { x, y, speed } = resident
-    const s = speed.value
-    let nx = x.value
-    let ny = y.value
+    const s = resident.speed
+    let nx = resident.x
+    let ny = resident.y
 
     if (keys.up)    ny -= s
     if (keys.down)  ny += s
     if (keys.left)  nx -= s
     if (keys.right) nx += s
 
-    if (nx !== x.value && canMoveTo(nx, y.value)) x.value = nx
-    if (ny !== y.value && canMoveTo(x.value, ny)) y.value = ny
+    if (nx !== resident.x && canMoveTo(nx, resident.y)) resident.x = nx
+    if (ny !== resident.y && canMoveTo(resident.x, ny)) resident.y = ny
 
-    // detect nearby location entry zones
     nearbyLocation.value = null
     for (const loc of locations) {
       const px = toPixels(loc)
       const cx = px.x + px.width / 2
       const cy = px.y + px.height / 2
-      const dx = x.value - cx
-      const dy = y.value - cy
+      const dx = resident.x - cx
+      const dy = resident.y - cy
       if (Math.sqrt(dx * dx + dy * dy) < INTERACT_DISTANCE + px.width / 2) {
         nearbyLocation.value = loc.id
         break
