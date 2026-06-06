@@ -2,6 +2,10 @@
 defineProps<{ title: string }>()
 
 const world = useWorldStore()
+
+function onKey(e: KeyboardEvent) { if (e.key === 'Escape') world.leaveLocation() }
+onMounted(() => document.addEventListener('keydown', onKey))
+onUnmounted(() => document.removeEventListener('keydown', onKey))
 </script>
 
 <template>
