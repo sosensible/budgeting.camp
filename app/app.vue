@@ -1,12 +1,14 @@
 <script setup lang="ts">
 useHead({
-  title: 'Life Simulator',
-  style: [{ children: 'html, body { margin: 0; padding: 0; overflow: hidden; background: #1a1a2e; }' }],
+  style: [{ innerHTML: 'html, body { margin: 0; padding: 0; overflow: hidden; background: #1a1a2e; }' }],
 })
+
+const started = ref(false)
 </script>
 
 <template>
-  <ClientOnly>
+  <WelcomeScreen v-if="!started" @start="started = true" />
+  <ClientOnly v-else>
     <GameStage />
   </ClientOnly>
 </template>

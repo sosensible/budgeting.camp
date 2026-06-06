@@ -4,4 +4,10 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
   modules: ['@pinia/nuxt'],
+  app: {
+    head: {
+      title: 'Budgeting Camp',
+      meta: [{ name: 'description', content: 'A life simulation for practicing real financial decisions' }],
+    },
+  },
 })
