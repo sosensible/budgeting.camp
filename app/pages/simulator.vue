@@ -3,6 +3,6 @@
 
 <template>
   <ClientOnly>
-    <GameStage />
+    <SimulatorStage />
   </ClientOnly>
 </template>

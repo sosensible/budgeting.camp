@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Konva from 'konva'
+import { WORLD_WIDTH, WORLD_HEIGHT } from '~/types/simulation'
 
 const stageRef = ref<{ getNode(): Konva.Stage } | null>(null)
 
@@ -19,8 +20,7 @@ onMounted(() => {
 
 <template>
   <v-stage ref="stageRef" :config="stageConfig">
-    <v-layer>
-      <!-- layers will be added here in subsequent phases -->
-    </v-layer>
+    <GroundLayer />
+    <BuildingsLayer />
   </v-stage>
 </template>
