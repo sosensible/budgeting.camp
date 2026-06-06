@@ -2,6 +2,8 @@
 import { locations } from '~/data/locations'
 
 const world = useWorldStore()
+const finance = useFinanceStore()
+const simTime = useSimTimeStore()
 
 const nearbyName = computed(() => {
   if (!world.nearbyLocation) return null
@@ -10,12 +12,62 @@ const nearbyName = computed(() => {
 </script>
 
 <template>
+  <div class="hud-balance">
+    <span class="label">Checking</span>
+    <span class="amount">${{ finance.checking.toFixed(2) }}</span>
+  </div>
+
+  <div class="hud-time">
+    Day {{ simTime.day }} · {{ simTime.dayName }} · {{ simTime.timeDisplay }}
+  </div>
+
   <div v-if="nearbyName" class="hud-prompt">
     Press <kbd>E</kbd> to enter {{ nearbyName }}
   </div>
 </template>
 
 <style scoped>
+.hud-balance {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #e2e8f0;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.hud-balance .label {
+  font-size: 0.7rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hud-balance .amount {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #68d391;
+}
+
+.hud-time {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #e2e8f0;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
 .hud-prompt {
   position: fixed;
   bottom: 48px;

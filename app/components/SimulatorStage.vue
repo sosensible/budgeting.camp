@@ -10,6 +10,7 @@ const { update: moveResident } = useResident(keys)
 const { stageX, stageY, update: moveCamera } = useCamera()
 const resident = useResidentStore()
 const world = useWorldStore()
+const simTime = useSimTimeStore()
 
 const stageConfig = computed(() => ({
   width: vpW.value,
@@ -19,7 +20,9 @@ const stageConfig = computed(() => ({
 }))
 
 let interactWasPressed = false
-useSimLoop(() => {
+useSimLoop((deltaMs: number) => {
+  simTime.tick(deltaMs)
+
   if (world.currentScene !== 'overworld') return
 
   moveResident()
