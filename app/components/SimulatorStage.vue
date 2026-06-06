@@ -9,6 +9,7 @@ const { keys } = useKeyboard()
 const { update: moveResident } = useResident(keys)
 const { stageX, stageY, update: moveCamera } = useCamera()
 const resident = useResidentStore()
+const world = useWorldStore()
 
 const stageConfig = computed(() => ({
   width: vpW.value,
@@ -17,9 +18,15 @@ const stageConfig = computed(() => ({
   y: stageY.value,
 }))
 
+let interactWasPressed = false
 useSimLoop(() => {
+  if (world.currentScene !== 'overworld') return
+
   moveResident()
   moveCamera(resident.x, resident.y, vpW.value, vpH.value)
+
+  if (keys.interact && !interactWasPressed) world.enterLocation()
+  interactWasPressed = keys.interact
 })
 
 onMounted(() => {

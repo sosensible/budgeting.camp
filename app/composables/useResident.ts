@@ -6,7 +6,7 @@ const INTERACT_DISTANCE = TILE_SIZE * 1.5
 
 export function useResident(keys: ReturnType<typeof useKeyboard>['keys']) {
   const resident = useResidentStore()
-  const nearbyLocation = ref<string | null>(null)
+  const world = useWorldStore()
 
   function update() {
     const s = resident.speed
@@ -21,7 +21,7 @@ export function useResident(keys: ReturnType<typeof useKeyboard>['keys']) {
     if (nx !== resident.x && canMoveTo(nx, resident.y)) resident.x = nx
     if (ny !== resident.y && canMoveTo(resident.x, ny)) resident.y = ny
 
-    nearbyLocation.value = null
+    world.nearbyLocation = null
     for (const loc of locations) {
       const px = toPixels(loc)
       const cx = px.x + px.width / 2
@@ -29,11 +29,11 @@ export function useResident(keys: ReturnType<typeof useKeyboard>['keys']) {
       const dx = resident.x - cx
       const dy = resident.y - cy
       if (Math.sqrt(dx * dx + dy * dy) < INTERACT_DISTANCE + px.width / 2) {
-        nearbyLocation.value = loc.id
+        world.nearbyLocation = loc.id
         break
       }
     }
   }
 
-  return { update, nearbyLocation }
+  return { update }
 }
