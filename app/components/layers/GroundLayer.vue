@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Konva from 'konva'
 import { worldMap } from '~/data/worldMap'
 import { TILE_SIZE } from '~/types/simulation'
 
@@ -9,8 +8,6 @@ const TILE_COLORS: Record<number, string> = {
   2: '#4a90d9', // water
   3: '#5a8a3c', // wall (same as grass — buildings sit on top)
 }
-
-const layerRef = ref<{ getNode(): Konva.Layer } | null>(null)
 
 const tiles = computed(() =>
   worldMap.flatMap((row, r) =>
@@ -28,15 +25,10 @@ const tiles = computed(() =>
   )
 )
 
-onMounted(() => {
-  nextTick(() => {
-    layerRef.value?.getNode().cache()
-  })
-})
 </script>
 
 <template>
-  <v-layer ref="layerRef">
+  <v-layer>
     <v-rect v-for="t in tiles" :key="t.key" :config="t" />
   </v-layer>
 </template>

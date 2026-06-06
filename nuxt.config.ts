@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
   modules: ['@pinia/nuxt'],
+  components: [{ path: '~/components', pathPrefix: false }],
   app: {
     head: {
       title: 'Budgeting Camp',

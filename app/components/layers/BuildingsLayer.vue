@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import Konva from 'konva'
 import { locations, toPixels } from '~/data/locations'
 import { TILE_SIZE } from '~/types/simulation'
 
 const INTERACTION_PADDING = TILE_SIZE
-
-const layerRef = ref<{ getNode(): Konva.Layer } | null>(null)
 
 const buildingShapes = computed(() =>
   locations.map((b) => {
@@ -45,15 +42,10 @@ const buildingShapes = computed(() =>
   })
 )
 
-onMounted(() => {
-  nextTick(() => {
-    layerRef.value?.getNode().cache()
-  })
-})
 </script>
 
 <template>
-  <v-layer ref="layerRef">
+  <v-layer>
     <template v-for="b in buildingShapes" :key="b.id">
       <v-rect :config="b.rect" />
       <v-rect :config="b.zone" />

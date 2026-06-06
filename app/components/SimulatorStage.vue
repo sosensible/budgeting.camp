@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Konva from 'konva'
-import { WORLD_WIDTH, WORLD_HEIGHT } from '~/types/simulation'
 
 const stageRef = ref<{ getNode(): Konva.Stage } | null>(null)
 
