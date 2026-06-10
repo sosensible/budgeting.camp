@@ -4,6 +4,22 @@ import { toPixels, doorPixels } from '~/data/locations'
 const DOOR_COLOR = '#6b4226'
 
 const scenario = useScenarioStore()
+const camera = useCameraStore()
+
+// margin covers sprite overhang above footprints and labels below
+const CULL_MARGIN_PX = 6 * 48
+
+const visibleBuildings = computed(() => {
+  if (!camera.viewW) return scenario.buildings  // before first camera frame
+  const x0 = camera.viewX - CULL_MARGIN_PX
+  const y0 = camera.viewY - CULL_MARGIN_PX
+  const x1 = camera.viewX + camera.viewW + CULL_MARGIN_PX
+  const y1 = camera.viewY + camera.viewH + CULL_MARGIN_PX
+  return scenario.buildings.filter((b) => {
+    const px = toPixels(b)
+    return px.x + px.width >= x0 && px.x <= x1 && px.y + px.height >= y0 && px.y <= y1
+  })
+})
 
 // src -> loaded element; reactive so shapes refresh as sprites arrive
 const imageCache = reactive<Record<string, HTMLImageElement | null>>({})
@@ -21,7 +37,7 @@ watch(() => scenario.buildings, (buildings) => {
 }, { immediate: true })
 
 const buildingShapes = computed(() =>
-  scenario.buildings.map((b) => {
+  visibleBuildings.value.map((b) => {
     const px = toPixels(b)
     const dp = doorPixels(b)
     const sprite = b.image ? imageCache[b.image] : null
