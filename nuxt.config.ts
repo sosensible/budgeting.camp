@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     head: {
       title: 'Budgeting Camp',
       meta: [{ name: 'description', content: 'A life simulation for practicing real financial decisions' }],
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'icon', type: 'image/png', href: '/icon.png', sizes: '512x512' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
     },
   },
 })
