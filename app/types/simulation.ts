@@ -9,6 +9,11 @@ export const WORLD_HEIGHT = WORLD_ROWS * TILE_SIZE  // 1440
 export type TileType = 0 | 1 | 2 | 3
 // 0 = grass, 1 = path, 2 = water, 3 = wall/blocked
 
+export interface BuildingDoor {
+  edge: 'north' | 'south' | 'east' | 'west'
+  offsetTiles: number
+}
+
 export interface Building {
   id: string
   name: string
@@ -18,6 +23,8 @@ export interface Building {
   tileH: number
   color: string
   scene: string
+  door: BuildingDoor
+  image?: string  // overworld sprite URL; falls back to color rect when absent
 }
 
 export interface Resident {

@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { clothingStoreItems, type StoreItem } from '~/data/storeItems'
+import type { ScenarioStoreItem } from '~/stores/scenario'
 
-const finance = useFinanceStore()
-const simTime = useSimTimeStore()
+const finance  = useFinanceStore()
+const simTime  = useSimTimeStore()
+const scenario = useScenarioStore()
+
+const clothingStoreItems = computed(() => scenario.data.stores['clothing-store'] ?? [])
+type StoreItem = ScenarioStoreItem
 const flashId = ref<string | null>(null)
 const flashType = ref<'success' | 'error'>('success')
 

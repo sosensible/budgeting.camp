@@ -1,3 +1,5 @@
+import type { ScenarioFinance } from '~/stores/scenario'
+
 export interface Transaction {
   id: string
   simDay: number
@@ -7,10 +9,21 @@ export interface Transaction {
 }
 
 export const useFinanceStore = defineStore('finance', () => {
-  const checking = ref(1850)
-  const savings = ref(320)
-  const transactions = ref<Transaction[]>([])
-  const lastPaydayDay = ref(-7)  // available from Day 1
+  const checking         = ref(0)
+  const savings          = ref(0)
+  const transactions     = ref<Transaction[]>([])
+  const lastPaydayDay    = ref(0)
+  const paycheckAmount   = ref(0)
+  const paycheckCycleDays = ref(7)
+
+  function init(config: ScenarioFinance) {
+    checking.value          = config.startingChecking
+    savings.value           = config.startingSavings
+    transactions.value      = []
+    lastPaydayDay.value     = -config.paycheckCycleDays
+    paycheckAmount.value    = config.paycheckAmount
+    paycheckCycleDays.value = config.paycheckCycleDays
+  }
 
   function credit(amount: number, description: string, category: Transaction['category'], simDay: number) {
     checking.value = Math.round((checking.value + amount) * 100) / 100
@@ -25,12 +38,12 @@ export const useFinanceStore = defineStore('finance', () => {
   }
 
   function canCollectPaycheck(currentDay: number): boolean {
-    return currentDay - lastPaydayDay.value >= 7
+    return currentDay - lastPaydayDay.value >= paycheckCycleDays.value
   }
 
   function collectPaycheck(simDay: number): boolean {
     if (!canCollectPaycheck(simDay)) return false
-    credit(1200, 'Weekly paycheck', 'income', simDay)
+    credit(paycheckAmount.value, 'Weekly paycheck', 'income', simDay)
     lastPaydayDay.value = simDay
     return true
   }
@@ -38,15 +51,19 @@ export const useFinanceStore = defineStore('finance', () => {
   function transferToSavings(amount: number, simDay: number): boolean {
     if (amount <= 0 || checking.value < amount) return false
     checking.value = Math.round((checking.value - amount) * 100) / 100
-    savings.value = Math.round((savings.value + amount) * 100) / 100
+    savings.value  = Math.round((savings.value  + amount) * 100) / 100
     transactions.value.unshift({
       id: crypto.randomUUID(), simDay,
-      description: `Transfer to savings`,
+      description: 'Transfer to savings',
       category: 'transfer',
       amount: -amount,
     })
     return true
   }
 
-  return { checking, savings, transactions, lastPaydayDay, canCollectPaycheck, collectPaycheck, debit, transferToSavings }
+  return {
+    checking, savings, transactions, lastPaydayDay,
+    paycheckAmount, paycheckCycleDays,
+    init, canCollectPaycheck, collectPaycheck, debit, transferToSavings,
+  }
 })

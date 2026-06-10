@@ -1,14 +1,22 @@
 export const useWorldStore = defineStore('world', () => {
   const nearbyLocation = ref<string | null>(null)
   const currentScene = ref<string>('overworld')
+  const exitLocked = ref(false)  // prevents re-entry until resident walks away from the door
 
-  function enterLocation() {
-    if (nearbyLocation.value) currentScene.value = nearbyLocation.value
+  function enterLocation(sceneId: string) {
+    currentScene.value = sceneId
   }
 
   function leaveLocation() {
     currentScene.value = 'overworld'
+    exitLocked.value = true
   }
 
-  return { nearbyLocation, currentScene, enterLocation, leaveLocation }
+  function reset() {
+    currentScene.value  = 'overworld'
+    nearbyLocation.value = null
+    exitLocked.value    = false
+  }
+
+  return { nearbyLocation, currentScene, exitLocked, enterLocation, leaveLocation, reset }
 })

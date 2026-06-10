@@ -3,5 +3,5 @@ const router = useRouter()
 </script>
 
 <template>
-  <WelcomeScreen @start="router.push('/simulator')" />
+  <ScenarioSelect @select="id => router.push(`/simulator?id=${id}`)" />
 </template>

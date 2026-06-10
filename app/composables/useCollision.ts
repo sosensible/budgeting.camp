@@ -1,14 +1,13 @@
-import { worldMap } from '~/data/worldMap'
-import { TILE_SIZE, WORLD_COLS, WORLD_ROWS } from '~/types/simulation'
-
-const RESIDENT_SIZE = 24 // half-width for corner checks
+const RESIDENT_SIZE = 24
 
 function isSolid(px: number, py: number): boolean {
-  const col = Math.floor(px / TILE_SIZE)
-  const row = Math.floor(py / TILE_SIZE)
+  const scenario = useScenarioStore()
+  const { tileSize, cols, rows } = scenario.world
+  const col = Math.floor(px / tileSize)
+  const row = Math.floor(py / tileSize)
   if (!Number.isFinite(col) || !Number.isFinite(row)) return true
-  if (col < 0 || col >= WORLD_COLS || row < 0 || row >= WORLD_ROWS) return true
-  return worldMap[row][col] === 3
+  if (col < 0 || col >= cols || row < 0 || row >= rows) return true
+  return scenario.tilemap[row][col] === 3
 }
 
 export function canMoveTo(x: number, y: number): boolean {

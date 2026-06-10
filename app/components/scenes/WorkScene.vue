@@ -5,8 +5,12 @@ const justCollected = ref(false)
 
 const daysUntilPayday = computed(() => {
   const daysSincePay = simTime.day - finance.lastPaydayDay
-  return Math.max(0, 7 - daysSincePay)
+  return Math.max(0, finance.paycheckCycleDays - daysSincePay)
 })
+
+const paycheckDisplay = computed(() =>
+  `$${finance.paycheckAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+)
 
 const canCollect = computed(() => finance.canCollectPaycheck(simTime.day))
 
@@ -23,7 +27,7 @@ function collect() {
     <div class="pay-info">
       <div class="stat">
         <span class="stat-label">Weekly Salary</span>
-        <span class="stat-value">\$1,200.00</span>
+        <span class="stat-value">{{ paycheckDisplay }}</span>
       </div>
       <div class="stat">
         <span class="stat-label">Pay Period</span>
@@ -36,7 +40,7 @@ function collect() {
     </div>
 
     <div v-if="justCollected" class="notice success">
-      Paycheck deposited — \$1,200.00 added to checking.
+      Paycheck deposited — {{ paycheckDisplay }} added to checking.
     </div>
     <div v-else-if="canCollect" class="notice ready">
       Your paycheck is ready to collect.
@@ -46,7 +50,7 @@ function collect() {
     </div>
 
     <button class="collect-btn" :disabled="!canCollect" @click="collect">
-      Collect Paycheck — \$1,200.00
+      Collect Paycheck — {{ paycheckDisplay }}
     </button>
   </SceneShell>
 </template>

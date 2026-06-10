@@ -19,7 +19,6 @@ const stageConfig = computed(() => ({
   y: stageY.value,
 }))
 
-let interactWasPressed = false
 useSimLoop((deltaMs: number) => {
   simTime.tick(deltaMs)
 
@@ -27,9 +26,6 @@ useSimLoop((deltaMs: number) => {
 
   moveResident()
   moveCamera(resident.x, resident.y, vpW.value, vpH.value)
-
-  if (keys.interact && !interactWasPressed) world.enterLocation()
-  interactWasPressed = keys.interact
 })
 
 onMounted(() => {

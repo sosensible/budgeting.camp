@@ -1,37 +1,55 @@
 <script setup lang="ts">
-import { locations } from '~/data/locations'
+defineEmits<{ exit: [] }>()
 
-const world = useWorldStore()
-const finance = useFinanceStore()
-const simTime = useSimTimeStore()
+const world    = useWorldStore()
+const finance  = useFinanceStore()
+const simTime  = useSimTimeStore()
+const scenario = useScenarioStore()
 
 const nearbyName = computed(() => {
   if (!world.nearbyLocation) return null
-  return locations.find(l => l.id === world.nearbyLocation)?.name ?? null
+  return scenario.buildings.find(l => l.id === world.nearbyLocation)?.name ?? null
 })
 </script>
 
 <template>
-  <div class="hud-balance">
-    <span class="label">Checking</span>
-    <span class="amount">${{ finance.checking.toFixed(2) }}</span>
+  <div class="hud-left">
+    <img v-if="scenario.data.avatar" :src="scenario.data.avatar" alt="Player avatar" class="hud-avatar">
+    <div class="hud-balance">
+      <span class="label">Checking</span>
+      <span class="amount">${{ finance.checking.toFixed(2) }}</span>
+    </div>
   </div>
 
   <div class="hud-time">
     Day {{ simTime.day }} · {{ simTime.dayName }} · {{ simTime.timeDisplay }}
+    <button class="exit-btn" @click="$emit('exit')">Exit</button>
   </div>
 
   <div v-if="nearbyName" class="hud-prompt">
-    Press <kbd>E</kbd> to enter {{ nearbyName }}
+    {{ nearbyName }}
   </div>
 </template>
 
 <style scoped>
-.hud-balance {
+.hud-left {
   position: fixed;
   top: 16px;
   left: 16px;
   z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hud-balance {
   background: rgba(0, 0, 0, 0.65);
   color: #e2e8f0;
   font-family: system-ui, sans-serif;
@@ -67,7 +85,26 @@ const nearbyName = computed(() => {
   font-size: 0.85rem;
   padding: 0.4rem 0.9rem;
   border-radius: 6px;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exit-btn {
+  background: transparent;
+  border: 1px solid #4a5568;
+  border-radius: 4px;
+  color: #718096;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  pointer-events: all;
+}
+
+.exit-btn:hover {
+  border-color: #fc8181;
+  color: #fc8181;
 }
 
 .hud-prompt {
@@ -83,13 +120,5 @@ const nearbyName = computed(() => {
   border-radius: 6px;
   pointer-events: none;
   white-space: nowrap;
-}
-
-kbd {
-  background: #4a5568;
-  border-radius: 3px;
-  padding: 0.1em 0.4em;
-  font-size: 0.85em;
-  font-family: inherit;
 }
 </style>
