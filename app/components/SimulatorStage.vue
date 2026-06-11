@@ -28,10 +28,18 @@ useSimLoop((deltaMs: number) => {
   moveCamera(resident.x, resident.y, vpW.value, vpH.value)
 })
 
+function onResize() {
+  vpW.value = window.innerWidth
+  vpH.value = window.innerHeight
+}
+
 onMounted(() => {
   const container = stageRef.value?.getNode().container()
   if (container) { container.tabIndex = 1; container.focus() }
+  window.addEventListener('resize', onResize)
 })
+
+onUnmounted(() => window.removeEventListener('resize', onResize))
 </script>
 
 <template>

@@ -1,0 +1,19 @@
+{
+  "id": "workplace",
+  "name": "Workplace",
+  "description": "Collect the weekly paycheck here.",
+  "scene": "workshop",
+  "image": "/scenario/alpha-3/workplace.png",
+  "color": "#8b6347",
+  "tileW": 5,
+  "tileH": 5,
+  "door": {
+    "tiles": [
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  "openTiles": []
+}

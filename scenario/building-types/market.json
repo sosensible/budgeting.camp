@@ -1,0 +1,92 @@
+{
+  "id": "market",
+  "name": "Market Stall",
+  "description": "Groceries and staples for day-to-day living.",
+  "scene": "market",
+  "image": "/scenario/alpha-3/shop-1.png",
+  "color": "#e8a857",
+  "tileW": 5,
+  "tileH": 5,
+  "door": {
+    "tiles": [
+      [
+        1,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  "openTiles": [
+    [
+      0,
+      4
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ]
+  ]
+}

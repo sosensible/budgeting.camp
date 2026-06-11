@@ -1,0 +1,76 @@
+{
+  "id": "bank",
+  "name": "Camp Bank",
+  "description": "Checking and savings; move money between accounts.",
+  "scene": "bank",
+  "image": "/scenario/alpha-3/bank.png",
+  "color": "#5a8fa0",
+  "tileW": 5,
+  "tileH": 5,
+  "door": {
+    "tiles": [
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  "openTiles": [
+    [
+      1,
+      4
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      2
+    ]
+  ]
+}

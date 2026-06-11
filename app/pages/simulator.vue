@@ -32,12 +32,26 @@ function exitToSelector() {
   world.reset()
   router.push('/')
 }
+
+// no text selection / long-press callout while playing (joystick drags
+// otherwise select HUD text and canvas on touch devices)
+useHead({ bodyAttrs: { class: 'sim-noselect' } })
 </script>
 
 <template>
   <ClientOnly>
     <SimulatorStage />
     <SimHUD @exit="exitToSelector" />
+    <TouchControls v-if="world.currentScene === 'overworld'" />
     <component :is="sceneMap[world.currentScene]" v-if="world.currentScene !== 'overworld'" />
   </ClientOnly>
 </template>
+
+<style>
+body.sim-noselect {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+</style>

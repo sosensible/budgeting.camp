@@ -14,9 +14,7 @@ const CATEGORY_MAP: Record<string, 'groceries' | 'clothing'> = {
 }
 const category = computed(() => CATEGORY_MAP[world.currentScene] ?? 'groceries')
 
-const building = computed(() =>
-  scenario.buildings.find(b => b.scene === world.currentScene)
-)
+const locationName = useLocationName('Shop')
 
 function buy(item: { id: string; name: string; price: number }) {
   const ok = finance.debit(item.price, item.name, category.value, simTime.day)
@@ -27,7 +25,7 @@ function buy(item: { id: string; name: string; price: number }) {
 </script>
 
 <template>
-  <SceneShell :title="building?.name ?? 'Shop'">
+  <SceneShell :title="locationName">
     <div class="balance-bar">
       Checking: <strong>${{ finance.checking.toFixed(2) }}</strong>
     </div>

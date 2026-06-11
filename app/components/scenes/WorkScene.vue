@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const locationName = useLocationName('Workplace')
 const finance = useFinanceStore()
 const simTime = useSimTimeStore()
 const justCollected = ref(false)
@@ -23,7 +24,7 @@ function collect() {
 </script>
 
 <template>
-  <SceneShell title="Workplace">
+  <SceneShell :title="locationName">
     <div class="pay-info">
       <div class="stat">
         <span class="stat-label">Weekly Salary</span>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { SCENARIO_CATALOG } from '~/stores/scenario'
 
-defineEmits<{ select: [id: string] }>()
+defineEmits<{ select: [id: string], edit: [id: string] }>()
+
+// the editor needs screen room — no Edit button on phones
+const isPhone = useIsPhone()
 
 function fmt(n: number) {
   return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -49,9 +52,14 @@ function fmt(n: number) {
           </li>
         </ul>
 
-        <button class="play-btn" @click="$emit('select', s.id)">
-          Enter →
-        </button>
+        <div class="actions">
+          <button class="play-btn" @click="$emit('select', s.id)">
+            Enter →
+          </button>
+          <button v-if="s.editable && !isPhone" class="edit-btn" @click="$emit('edit', s.id)">
+            Edit
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -160,8 +168,30 @@ h2 {
 .stat-value.savings { color: #68d391; }
 .stat-value.pay     { color: #63b3ed; }
 
-.play-btn {
+.actions {
   margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn {
+  padding: 0.6rem 0.9rem;
+  background: transparent;
+  color: #63b3ed;
+  border: 1px solid #2d4a63;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.edit-btn:hover {
+  border-color: #63b3ed;
+  background: rgba(99, 179, 237, 0.08);
+}
+
+.play-btn {
   padding: 0.6rem 1rem;
   background: #68d391;
   color: #1a1a2e;

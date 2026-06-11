@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const locationName = useLocationName('Home')
 const finance = useFinanceStore()
 const simTime = useSimTimeStore()
 
@@ -13,7 +14,7 @@ const recentSpend = computed(() => {
 </script>
 
 <template>
-  <SceneShell title="Home">
+  <SceneShell :title="locationName">
     <p class="tagline">Review your finances before heading out.</p>
 
     <div class="summary-grid">

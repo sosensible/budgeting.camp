@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const locationName = useLocationName('Bank')
 const finance = useFinanceStore()
 const simTime = useSimTimeStore()
 
@@ -29,7 +30,7 @@ function txClass(amount: number) { return amount >= 0 ? 'credit' : 'debit' }
 </script>
 
 <template>
-  <SceneShell title="Bank">
+  <SceneShell :title="locationName">
     <div class="accounts">
       <div class="account">
         <span class="acct-label">Checking</span>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const locationName = useLocationName('General Store')
 import type { ScenarioStoreItem } from '~/stores/scenario'
 
 const finance  = useFinanceStore()
@@ -19,7 +20,7 @@ function buy(item: StoreItem) {
 </script>
 
 <template>
-  <SceneShell title="General Store">
+  <SceneShell :title="locationName">
     <div class="balance-bar">
       Checking: <strong>\${{ finance.checking.toFixed(2) }}</strong>
     </div>

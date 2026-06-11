@@ -47,6 +47,7 @@ export interface ScenarioBackgroundChunks {
 export interface ScenarioData {
   id: string
   name: string
+  editable?: boolean  // shows the Edit button and enables /editor for this scenario
   world: ScenarioWorld
   background?: string  // full-map backdrop image URL; tiles render only when absent
   backgroundChunks?: ScenarioBackgroundChunks  // chunked backdrop for large maps
@@ -73,6 +74,7 @@ export const SCENARIO_CATALOG = Object.values(SCENARIOS).map(s => ({
   startingSavings:  s.finance.startingSavings,
   weeklyPay:        s.finance.paycheckAmount,
   locationCount:    s.buildings.length,
+  editable:         s.editable ?? false,
 }))
 
 export const useScenarioStore = defineStore('scenario', () => {

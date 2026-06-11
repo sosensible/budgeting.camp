@@ -1,0 +1,84 @@
+{
+  "id": "supply",
+  "name": "Supply Shop",
+  "description": "Camp gear and essentials.",
+  "scene": "supply-tent",
+  "image": "/scenario/alpha-3/supply.png",
+  "color": "#d4c498",
+  "tileW": 5,
+  "tileH": 5,
+  "door": {
+    "tiles": [
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  "openTiles": [
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ]
+  ]
+}

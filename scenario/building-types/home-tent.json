@@ -1,0 +1,19 @@
+{
+  "id": "home-tent",
+  "name": "Home Tent",
+  "description": "The resident's home tent. Rest and start the day here.",
+  "scene": "home-tent",
+  "image": "/scenario/alpha-3/home.png",
+  "color": "#c8b87a",
+  "tileW": 5,
+  "tileH": 5,
+  "door": {
+    "tiles": [
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  "openTiles": []
+}
